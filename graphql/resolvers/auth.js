@@ -5,29 +5,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/user");
 const Profile = require("../../models/profile");
 
-const mergeProfile = async (profileId) => {
-  try {
-    const userProfile = await Profile.findById(profileId)
-    return {
-      ...userProfile._doc,
-      user: userBind.bind(this, userProfile._doc.user)
-    }
-  } catch (err) {
-    throw err;
-  }
-}
-
-const userBind = async (userId) => {
-  try {
-    const user = await User.findById(userId);
-    return {
-      ...user._doc,
-      profile: userProfile.bind(this, user._doc.userProfile),
-    };
-  } catch (err) {
-    throw err;
-  }
-};
+let userInfo;
 
 module.exports = {
   createUser: async (args) => {
@@ -37,30 +15,63 @@ module.exports = {
         throw new Error("User already exists.");
       }
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
-      
+
       const user = new User({
         email: args.userInput.email,
         password: hashedPassword,
+        profile: null,
       });
-      
+
       const result = await user.save();
-      
-      const userInfo = await User.findOne(result);
-      
-      
-      const newProfile = new Profile({
-        bio: "Hello my name is Ted",
-        user: userInfo
-      });
-      
-      let createdProfile;
-      try {
-        const profileResult = await newProfile.save();
-        createdProfile = await mergeProfile(profileResult)
-        console.log("Profile:", createdProfile)
-        return createdProfile
-      } catch (error) {
-        throw err
+      userInfo = await User.findOne(result);
+      return userInfo;
+    } catch (err) {
+      throw err;
+    }
+  },
+  addProfile: async (args) => {
+    const newProfile = new Profile({
+      firstName: args.profileInput.firstName,
+      lastName: args.profileInput.lastName,
+      dob: args.profileInput.dob,
+      bio: args.profileInput.bio | null,
+      avatar: args.profileInput.avatar | null,
+      city: args.profileInput.city,
+      state: args.profileInput.state,
+      occupation: args.profileInput.occupation | null,
+      user: await userInfo,
+    });
+
+    ///save profile
+    const profileResult = await newProfile.save();
+    let mergedProfile
+    try {
+      mergedProfile = await User.findById(userInfo)
+      mergedProfile.profile = profileResult
+      mergedProfile.save()
+    } catch (err) {
+      throw new Error("Cannot attach profile");
+    }
+    console.log("This is profile merged: ", mergedProfile);
+    return mergedProfile;
+  },
+  editProfile: async (args) => {
+    const update = {
+      firstName: args.profileInput.firstName,
+      lastName: args.profileInput.lastName,
+      bio: args.profileInput.bio | null,
+      avatar: args.profileInput.avatar | null,
+      city: args.profileInput.city,
+      state: args.profileInput.state,
+      occupation: args.profileInput.occupation | null,
+    };
+    try {
+      const findProfile = await Profile.findOneAndUpdate(
+        args.profileInput.id,
+        update
+      );
+      if (!findProfile) {
+        throw new Error("Profile does not exist.");
       }
     } catch (err) {
       throw err;

@@ -12,7 +12,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    userProfile: {
+    profile: {
         type: Schema.Types.ObjectId,
         ref: 'UserProfile'  
     },
