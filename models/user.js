@@ -5,16 +5,17 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     email: {
         type: String,
+        unique: true,
         required: true
     },
     password: {
         type: String,
         required: true
     },
-    userProfile: [{
+    userProfile: {
         type: Schema.Types.ObjectId,
         ref: 'UserProfile'  
-    }],
+    },
     createdEvents: [
         {
             type: Schema.Types.ObjectId,

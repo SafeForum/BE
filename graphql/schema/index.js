@@ -12,14 +12,13 @@ module.exports = buildSchema(`
     type UserProfile {
         _id: ID!
         avatar: String
-        dob: String!
-        city: String!
-        state: String!
+        dob: String
+        city: String
+        state: String
         bio: String
         occupation: String
         user: User!
-        createdAt: String!
-        updatedAt: String!
+        updatedAt: String
     }
 
     type Event {
@@ -36,7 +35,7 @@ module.exports = buildSchema(`
         email: String!
         password: String
         createdEvents: [Event!]
-        profile: [UserProfile!]
+        profile: UserProfile!
     }
 
     type AuthData {
@@ -59,9 +58,6 @@ module.exports = buildSchema(`
         state: String!
         bio: String!
         occupation: String!
-        user: User!
-        createdAt: String!
-        updatedAt: String!
     }
 
     input UserInput {
@@ -70,6 +66,7 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
+        user: [User!]!
         events: [Event!]!
         bookings: [Booking!]!
         login(email: String!, password: String!): AuthData!
