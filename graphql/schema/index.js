@@ -37,7 +37,7 @@ module.exports = buildSchema(`
         email: String!
         password: String
         createdEvents: [Event!]
-        profile: UserProfile!
+        profile: UserProfile
     }
 
     type AuthData {
@@ -69,7 +69,7 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
-        user: [User!]!
+        getUsers: [User!]!
         events: [Event!]!
         bookings: [Booking!]!
         login(email: String!, password: String!): AuthData!
