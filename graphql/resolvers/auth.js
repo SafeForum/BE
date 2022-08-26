@@ -75,7 +75,6 @@ module.exports = {
       const mergeUser = await User.findById(userData.id)
       mergeUser.profile = result
       mergeUser.save()      
-      console.log("This is mergedUser: ", mergeUser)
       mergedProfile = {
         ...result._doc,
         user: user.bind(this, result._doc.user)
@@ -89,20 +88,22 @@ module.exports = {
     const update = {
       firstName: args.profileInput.firstName,
       lastName: args.profileInput.lastName,
-      bio: args.profileInput.bio | null,
-      avatar: args.profileInput.avatar | null,
+      bio: args.profileInput.bio || null,
+      avatar: args.profileInput.avatar || null,
       city: args.profileInput.city,
       state: args.profileInput.state,
-      occupation: args.profileInput.occupation | null,
+      occupation: args.profileInput.occupation || null,
     };
     try {
       const findProfile = await Profile.findOneAndUpdate(
-        args.profileInput.id,
+        args.profId,
         update
       );
       if (!findProfile) {
         throw new Error("Profile does not exist.");
       }
+      
+      return await Profile.findById(args.profId)
     } catch (err) {
       throw err;
     }
@@ -111,7 +112,6 @@ module.exports = {
     try {
       const users = await User.find()
       return users.map(user => {
-        console.log("This is user :", user)
         return {
           ...user._doc,
           _id: user.id,
