@@ -75,7 +75,6 @@ module.exports = {
       const mergeUser = await User.findById(userData.id)
       mergeUser.profile = result
       mergeUser.save()      
-      console.log("This is mergedUser: ", mergeUser)
       mergedProfile = {
         ...result._doc,
         user: user.bind(this, result._doc.user)
@@ -111,7 +110,6 @@ module.exports = {
     try {
       const users = await User.find()
       return users.map(user => {
-        console.log("This is user :", user)
         return {
           ...user._doc,
           _id: user.id,
