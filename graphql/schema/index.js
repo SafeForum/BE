@@ -11,13 +11,15 @@ module.exports = buildSchema(`
 
     type UserProfile {
         _id: ID!
+        user: User!
+        firstName: String!
+        lastName: String!
         avatar: String
-        dob: String
-        city: String
-        state: String
+        dob: String!
+        city: String!
+        state: String!
         bio: String
         occupation: String
-        user: User!
         updatedAt: String
     }
 
@@ -35,7 +37,7 @@ module.exports = buildSchema(`
         email: String!
         password: String
         createdEvents: [Event!]
-        profile: UserProfile!
+        profile: UserProfile
     }
 
     type AuthData {
@@ -52,7 +54,8 @@ module.exports = buildSchema(`
     }
 
     input ProfileInput {
-        _id: ID!
+        firstName: String!
+        lastName: String!
         dob: String!
         city: String!
         state: String!
@@ -66,7 +69,7 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
-        user: [User!]!
+        getUsers: [User!]!
         events: [Event!]!
         bookings: [Booking!]!
         login(email: String!, password: String!): AuthData!
@@ -76,6 +79,7 @@ module.exports = buildSchema(`
     type RootMutation {
         createUser(userInput: UserInput): User
         editProfile(profileInput: ProfileInput): UserProfile
+        addProfile(profileInput: ProfileInput): UserProfile
         createEvent(eventInput: EventInput): Event
         bookEvent(eventId: ID!): Booking!
         cancelBooking(bookingId: ID!): Event!

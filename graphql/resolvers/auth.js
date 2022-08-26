@@ -4,30 +4,34 @@ const jwt = require("jsonwebtoken");
 //models
 const User = require("../../models/user");
 const Profile = require("../../models/profile");
+const { findOne } = require("../../models/profile");
+const profile = require("../../models/profile");
 
-const mergeProfile = async (profileId) => {
+let userInfo;
+
+const user = async (userId) => {
   try {
-    const userProfile = await Profile.findById(profileId)
+    const userData = await User.findById(userId)
     return {
-      ...userProfile._doc,
-      user: userBind.bind(this, userProfile._doc.user)
+      ...userData._doc,
+      _id: userData.id
     }
   } catch (err) {
-    throw err;
+   throw err 
   }
 }
 
-const userBind = async (userId) => {
+const attachProfile = async (profileId) => {
   try {
-    const user = await User.findById(userId);
+    const profileData = await Profile.findById(profileId)
     return {
-      ...user._doc,
-      profile: userProfile.bind(this, user._doc.userProfile),
-    };
+      ...profileData._doc,
+      _id: profileData.id
+    }
   } catch (err) {
-    throw err;
+    throw err
   }
-};
+}
 
 module.exports = {
   createUser: async (args) => {
@@ -37,33 +41,85 @@ module.exports = {
         throw new Error("User already exists.");
       }
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
-      
       const user = new User({
         email: args.userInput.email,
         password: hashedPassword,
+        profile: null,
       });
-      
+
       const result = await user.save();
-      
-      const userInfo = await User.findOne(result);
-      
-      
-      const newProfile = new Profile({
-        bio: "Hello my name is Ted",
-        user: userInfo
-      });
-      
-      let createdProfile;
-      try {
-        const profileResult = await newProfile.save();
-        createdProfile = await mergeProfile(profileResult)
-        console.log("Profile:", createdProfile)
-        return createdProfile
-      } catch (error) {
-        throw err
+      userInfo = await User.findOne(result);
+      return userInfo
+    } catch (err) {
+      throw err;
+    }
+  },
+  addProfile: async (args) => {
+    const userData = await User.findOne(userInfo)
+    const newProfile = new Profile({
+      firstName: args.profileInput.firstName,
+      lastName: args.profileInput.lastName,
+      dob: args.profileInput.dob,
+      bio: args.profileInput.bio || null,
+      avatar: args.profileInput.avatar || null,
+      city: args.profileInput.city,
+      state: args.profileInput.state,
+      occupation: args.profileInput.occupation || null,
+      user: userData.id,
+    });
+
+    ///save profile
+    let mergedProfile;
+    try {
+      const result = await newProfile.save();
+      const mergeUser = await User.findById(userData.id)
+      mergeUser.profile = result
+      mergeUser.save()      
+      console.log("This is mergedUser: ", mergeUser)
+      mergedProfile = {
+        ...result._doc,
+        user: user.bind(this, result._doc.user)
+      }
+    } catch (err) {
+      throw new Error("Cannot attach profile");
+    }
+    return mergedProfile;
+  },
+  editProfile: async (args) => {
+    const update = {
+      firstName: args.profileInput.firstName,
+      lastName: args.profileInput.lastName,
+      bio: args.profileInput.bio | null,
+      avatar: args.profileInput.avatar | null,
+      city: args.profileInput.city,
+      state: args.profileInput.state,
+      occupation: args.profileInput.occupation | null,
+    };
+    try {
+      const findProfile = await Profile.findOneAndUpdate(
+        args.profileInput.id,
+        update
+      );
+      if (!findProfile) {
+        throw new Error("Profile does not exist.");
       }
     } catch (err) {
       throw err;
+    }
+  },
+  getUsers: async () => {
+    try {
+      const users = await User.find()
+      return users.map(user => {
+        console.log("This is user :", user)
+        return {
+          ...user._doc,
+          _id: user.id,
+          profile: attachProfile.bind(this, user.profile)
+        }
+       })
+    } catch (err) {
+      throw new Error("No users")
     }
   },
   login: async ({ email, password }) => {
