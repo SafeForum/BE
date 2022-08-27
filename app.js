@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const { graphqlHTTP } = require("express-graphql");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require('dotenv').config()
 
 //graphQL
 const gqlSchema = require("./graphql/schema");
