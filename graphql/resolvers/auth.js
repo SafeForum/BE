@@ -42,19 +42,19 @@ module.exports = {
       const user = new User({
         email: args.userInput.email,
         password: hashedPassword,
+        city: args.userInput.city,
+        state: args.userInput.state,
+        firstName: args.userInput.firstName,
+        lastName: args.userInput.lastName,
+        dob: args.userInput.dob,
         profile: null,
       });
       const savedUser = await user.save();
       const userData = await User.findOne(savedUser);
       console.log("This is args: ", args);
       const newProfile = new Profile({
-        firstName: args.profileInput.firstName,
-        lastName: args.profileInput.lastName,
-        dob: args.profileInput.dob,
         bio: args.profileInput.bio || null,
         avatar: args.profileInput.avatar || null,
-        city: args.profileInput.city,
-        state: args.profileInput.state,
         occupation: args.profileInput.occupation || null,
         user: userData,
       });

@@ -12,15 +12,24 @@ module.exports = buildSchema(`
     type UserProfile {
         _id: ID!
         user: User!
+        avatar: String
+        bio: String
+        occupation: String
+        createdAt: String
+        updatedAt: String
+    }
+        
+    type User {
+        _id: ID!
+        email: String!
+        password: String
         firstName: String!
         lastName: String!
-        avatar: String
         dob: String!
         city: String!
         state: String!
-        bio: String
-        occupation: String
-        updatedAt: String
+        createdEvents: [Event!]
+        profile: UserProfile
     }
 
     type Event {
@@ -30,14 +39,6 @@ module.exports = buildSchema(`
         price: Float!
         date: String!
         creator: User!
-    }
-    
-    type User {
-        _id: ID!
-        email: String!
-        password: String
-        createdEvents: [Event!]
-        profile: UserProfile
     }
 
     type AuthData {
@@ -54,11 +55,6 @@ module.exports = buildSchema(`
     }
 
     input ProfileInput {
-        firstName: String!
-        lastName: String!
-        dob: String!
-        city: String!
-        state: String!
         bio: String!
         occupation: String!
     }
@@ -66,6 +62,18 @@ module.exports = buildSchema(`
     input UserInput {
         email: String!
         password: String!
+        firstName: String!
+        lastName: String!
+        dob: String!
+        city: String!
+        state: String!
+    }
+
+    type PortalLocation {
+        city: String!
+        state: String!
+        users: [User!]
+        events: [Event!]
     }
 
     type RootQuery {
