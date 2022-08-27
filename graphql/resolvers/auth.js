@@ -51,16 +51,14 @@ module.exports = {
       });
       const savedUser = await user.save();
       const userData = await User.findOne(savedUser);
-      console.log("This is args: ", args);
+
       const newProfile = new Profile({
         bio: args.profileInput.bio || null,
         avatar: args.profileInput.avatar || null,
         occupation: args.profileInput.occupation || null,
         user: userData,
       });
-      console.log(newProfile)
       const savedProfile = await newProfile.save();
-      console.log("This is saved profile: ", savedProfile);
       ///save profile
       let merged;
       try {
