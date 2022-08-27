@@ -77,7 +77,7 @@ module.exports = buildSchema(`
     }
 
     type RootMutation {
-        createUser(userInput: UserInput): User
+        createUser(userInput: UserInput, profileInput: ProfileInput): User
         editProfile(profileInput: ProfileInput, profId: ID!): UserProfile
         addProfile(profileInput: ProfileInput): UserProfile
         createEvent(eventInput: EventInput): Event
