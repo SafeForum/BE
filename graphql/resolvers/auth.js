@@ -7,17 +7,6 @@ const Profile = require("../../models/profile");
 
 // let userInfo;
 
-const user = async (userId) => {
-  try {
-    const userData = await User.findById(userId);
-    return {
-      ...userData._doc,
-      _id: userData.id,
-    };
-  } catch (err) {
-    throw err;
-  }
-};
 
 const attachProfile = async (profileId) => {
   try {
@@ -79,12 +68,8 @@ module.exports = {
   },
   editProfile: async (args) => {
     const update = {
-      firstName: args.profileInfo.firstName,
-      lastName: args.profileInfo.lastName,
       bio: args.profileInfo.bio || null,
       avatar: args.profileInfo.avatar || null,
-      city: args.profileInfo.city,
-      state: args.profileInfo.state,
       occupation: args.profileInfo.occupation || null,
     };
     try {
