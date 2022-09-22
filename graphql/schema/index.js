@@ -54,9 +54,12 @@ module.exports = buildSchema(`
         date: String!
     }
 
-    input ProfileInput {
-        bio: String!
-        occupation: String!
+    input ProfileInput {  
+        avatar: String
+        bio: String
+        occupation: String
+        createdAt: String
+        updatedAt: String
     }
 
     input UserInput {
@@ -73,7 +76,6 @@ module.exports = buildSchema(`
         city: String!
         state: String!
         users: [User!]
-        events: [Event!]
     }
 
     type RootQuery {

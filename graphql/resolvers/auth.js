@@ -7,7 +7,6 @@ const Profile = require("../../models/profile");
 
 // let userInfo;
 
-
 const attachProfile = async (profileId) => {
   try {
     const profileData = await Profile.findById(profileId);
@@ -24,8 +23,12 @@ module.exports = {
   createUser: async (args) => {
     try {
       const existingUser = await User.findOne({ email: args.userInput.email });
+      const bioLimit = args.profileInput.occupation.length <= 20 ? true : false;
       if (existingUser) {
         throw new Error("User already exists.");
+      }
+      if (!bioLimit) {
+        throw new Error("Max Characters Reached for Occupation");
       }
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
       const user = new User({
@@ -57,6 +60,7 @@ module.exports = {
         merged = {
           ...mergedUser._doc,
           profile: attachProfile.bind(this, mergedUser._doc.profile),
+          password: null,
         };
       } catch (err) {
         throw new Error("Cannot attach profile");
@@ -68,9 +72,9 @@ module.exports = {
   },
   editProfile: async (args) => {
     const update = {
-      bio: args.profileInfo.bio || null,
-      avatar: args.profileInfo.avatar || null,
-      occupation: args.profileInfo.occupation || null,
+      bio: args.profileInfo.bio,
+      avatar: args.profileInfo.avatar,
+      occupation: args.profileInfo.occupation,
     };
     try {
       const findProfile = await Profile.findOneAndUpdate(args.profId, update);
@@ -90,6 +94,7 @@ module.exports = {
         return {
           ...user._doc,
           _id: user.id,
+          password: null,
           profile: attachProfile.bind(this, user.profile),
         };
       });
