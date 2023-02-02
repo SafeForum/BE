@@ -92,7 +92,7 @@ module.exports = buildSchema(`
 
     type RootMutation {
         login(email: String!, password: String!): AuthData!
-        createUser(userInput: UserInput, profileInput: ProfileInput): User
+        createUser(userInput: UserInput, profileInput: ProfileInput): AuthData!
         editProfile(profileInput: ProfileInput, profId: ID!): UserProfile
         addProfile(profileInput: ProfileInput): UserProfile
         createEvent(eventInput: EventInput): Event
