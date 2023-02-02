@@ -7,18 +7,6 @@ const Profile = require("../../models/profile");
 
 // let userInfo;
 
-const user = async (userId) => {
-  try {
-    const userData = await User.findById(userId);
-    return {
-      ...userData._doc,
-      _id: userData.id,
-    };
-  } catch (err) {
-    throw err;
-  }
-};
-
 const attachProfile = async (profileId) => {
   try {
     const profileData = await Profile.findById(profileId);
@@ -35,8 +23,12 @@ module.exports = {
   createUser: async (args) => {
     try {
       const existingUser = await User.findOne({ email: args.userInput.email });
+      const bioLimit = args.profileInput.occupation.length <= 20 ? true : false;
       if (existingUser) {
         throw new Error("User already exists.");
+      }
+      if (!bioLimit) {
+        throw new Error("Max Characters Reached for Occupation");
       }
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
       const user = new User({
@@ -68,6 +60,7 @@ module.exports = {
         merged = {
           ...mergedUser._doc,
           profile: attachProfile.bind(this, mergedUser._doc.profile),
+          password: null,
         };
       } catch (err) {
         throw new Error("Cannot attach profile");
@@ -79,13 +72,9 @@ module.exports = {
   },
   editProfile: async (args) => {
     const update = {
-      firstName: args.profileInfo.firstName,
-      lastName: args.profileInfo.lastName,
-      bio: args.profileInfo.bio || null,
-      avatar: args.profileInfo.avatar || null,
-      city: args.profileInfo.city,
-      state: args.profileInfo.state,
-      occupation: args.profileInfo.occupation || null,
+      bio: args.profileInfo.bio,
+      avatar: args.profileInfo.avatar,
+      occupation: args.profileInfo.occupation,
     };
     try {
       const findProfile = await Profile.findOneAndUpdate(args.profId, update);
@@ -105,6 +94,7 @@ module.exports = {
         return {
           ...user._doc,
           _id: user.id,
+          password: null,
           profile: attachProfile.bind(this, user.profile),
         };
       });
@@ -114,6 +104,7 @@ module.exports = {
   },
   login: async ({ email, password }) => {
     const user = await User.findOne({ email: email });
+    console.log(email)
     if (!user) {
       throw new Error("User does not exist!");
     }
@@ -124,7 +115,7 @@ module.exports = {
 
     const token = jwt.sign(
       { userId: user.id, email: user.email },
-      "somesupersecretkey",
+      `${process.env.JWT_SECRET}`,
       {
         expiresIn: "1h",
       }
