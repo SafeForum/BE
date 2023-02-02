@@ -62,6 +62,11 @@ module.exports = buildSchema(`
         updatedAt: String
     }
 
+    input LoginInput {
+        email: String!
+        password: String!
+    }
+
     input UserInput {
         email: String!
         password: String!
@@ -82,11 +87,11 @@ module.exports = buildSchema(`
         getUsers: [User!]!
         events: [Event!]!
         bookings: [Booking!]!
-        login(email: String!, password: String!): AuthData!
         profile: [UserProfile!]!
     }
 
     type RootMutation {
+        login(email: String!, password: String!): AuthData!
         createUser(userInput: UserInput, profileInput: ProfileInput): User
         editProfile(profileInput: ProfileInput, profId: ID!): UserProfile
         addProfile(profileInput: ProfileInput): UserProfile
