@@ -65,7 +65,31 @@ module.exports = {
       } catch (err) {
         throw new Error("Cannot attach profile");
       }
-      return merged;
+
+      try {
+        const login = await User.findOne({ email: args.userInput.email });
+        console.log("This is login: ", login)
+        if (!login) {
+          throw new Error("User does not exist!");
+        }
+        const isEqual = await bcrypt.compare(args.userInput.password, login.password);
+        if (!isEqual) {
+          throw new Error("Password is incorrect!");
+        }
+    
+        const token = jwt.sign(
+          { userId: login.id, email: login.email },
+          `${process.env.JWT_SECRET}`,
+          {
+            expiresIn: "1h",
+          }
+        );
+        console.log("This is token :", token)
+        return { merged, userId: login.id, token: token, tokenExpiration: 1 };
+      }
+       catch (error) {
+        throw new Error("Your account has been created, please log in!")
+      }
     } catch (err) {
       throw err;
     }
