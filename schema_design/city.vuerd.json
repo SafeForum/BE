@@ -3,8 +3,8 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -315,
-    "scrollLeft": -340,
+    "scrollTop": -182,
+    "scrollLeft": -320,
     "zoomLevel": 0.8,
     "show": {
       "tableComment": true,
@@ -43,13 +43,13 @@
   "table": {
     "tables": [
       {
-        "name": "PortalLocation",
+        "name": "CityPortal",
         "comment": "",
         "columns": [
           {
             "name": "_id",
             "comment": "",
-            "dataType": "INT",
+            "dataType": "LINESTRING",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -64,7 +64,7 @@
               "pfk": false,
               "widthName": 60,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 80.0126953125,
               "widthDefault": 60
             },
             "id": "14db9d2d-873a-4c47-b333-773754c3adf1"
@@ -163,11 +163,11 @@
           }
         ],
         "ui": {
-          "active": false,
-          "left": 669.25,
-          "top": 55,
-          "zIndex": 288,
-          "widthName": 85.10986328125,
+          "active": true,
+          "left": 670.5,
+          "top": 56.25,
+          "zIndex": 13,
+          "widthName": 60,
           "widthComment": 60
         },
         "visible": true,
@@ -408,32 +408,9 @@
             "id": "1077e895-cb2d-43b0-b075-0e27e035976d"
           },
           {
-            "name": "PortalLocation_id",
-            "comment": "",
-            "dataType": "",
-            "default": "",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": true
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 102.4580078125,
-              "widthComment": 60,
-              "widthDataType": 60,
-              "widthDefault": 60
-            },
-            "id": "647244fa-972f-4108-883e-79ea99c84902"
-          },
-          {
             "name": "portal_id",
             "comment": "",
-            "dataType": "INT",
+            "dataType": "LINESTRING",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -448,7 +425,7 @@
               "pfk": false,
               "widthName": 60,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 80.0126953125,
               "widthDefault": 60
             },
             "id": "79973406-448a-45fe-9249-c7917c6c4693"
@@ -458,7 +435,7 @@
           "active": false,
           "left": 172.75,
           "top": 21.5,
-          "zIndex": 333,
+          "zIndex": 6,
           "widthName": 60,
           "widthComment": 60
         },
@@ -635,7 +612,7 @@
           "active": false,
           "left": 55.75,
           "top": 467.5,
-          "zIndex": 162,
+          "zIndex": 1,
           "widthName": 64.13720703125,
           "widthComment": 60
         },
@@ -789,7 +766,7 @@
           "active": false,
           "left": 62.25,
           "top": 708.75,
-          "zIndex": 259,
+          "zIndex": 3,
           "widthName": 85.103515625,
           "widthComment": 60
         },
@@ -895,7 +872,7 @@
           {
             "name": "portal_id",
             "comment": "",
-            "dataType": "INT",
+            "dataType": "LINESTRING",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -910,7 +887,7 @@
               "pfk": false,
               "widthName": 60,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 80.0126953125,
               "widthDefault": 60
             },
             "id": "55f244bd-940e-4414-b4d6-052380247b37"
@@ -943,7 +920,7 @@
           "active": false,
           "left": 1197.75,
           "top": 109.75,
-          "zIndex": 249,
+          "zIndex": 2,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1095,9 +1072,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 1340.25,
-          "top": 487.25,
-          "zIndex": 256,
+          "left": 1230.2503,
+          "top": 433.917,
+          "zIndex": 7,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1226,7 +1203,7 @@
           {
             "name": "portal_id",
             "comment": "",
-            "dataType": "INT",
+            "dataType": "LINESTRING",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -1241,7 +1218,7 @@
               "pfk": false,
               "widthName": 60,
               "widthComment": 60,
-              "widthDataType": 60,
+              "widthDataType": 80.0126953125,
               "widthDefault": 60
             },
             "id": "a7a991ce-8f89-496d-97a7-1144c6b4a0a0"
@@ -1249,9 +1226,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 665.75,
-          "top": 273,
-          "zIndex": 327,
+          "left": 670.1944,
+          "top": 296.3331,
+          "zIndex": 5,
           "widthName": 93.05078125,
           "widthComment": 60
         },
@@ -1379,15 +1356,101 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 667.75,
           "top": 548.25,
-          "zIndex": 337,
+          "zIndex": 4,
           "widthName": 61.9599609375,
           "widthComment": 60
         },
         "visible": true,
         "id": "ab1dd550-ecaa-456a-801c-b99bb02eaabd"
+      },
+      {
+        "name": "cities",
+        "comment": "list of cities requested for portal creation",
+        "columns": [
+          {
+            "name": "_id",
+            "comment": "",
+            "dataType": "LINESTRING",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 80.0126953125,
+              "widthDefault": 60
+            },
+            "id": "f72a6a4b-2b5c-40ec-8070-07c9b616f3c5"
+          },
+          {
+            "name": "cityName",
+            "comment": "",
+            "dataType": "LINESTRING",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 80.0126953125,
+              "widthDefault": 60
+            },
+            "id": "13a61c19-a304-4ad5-b31c-4645c729de72"
+          },
+          {
+            "name": "state",
+            "comment": "",
+            "dataType": "LINESTRING",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 80.0126953125,
+              "widthDefault": 60
+            },
+            "id": "fb811cbe-1d5a-44c1-98f2-e34580f0bea5"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 1173.0001,
+          "top": 680.778,
+          "zIndex": 8,
+          "widthName": 60,
+          "widthComment": 120,
+          "color": "#9C27B0"
+        },
+        "visible": true,
+        "id": "707ce418-6570-47b7-9997-038ead900538"
       }
     ],
     "indexes": []
@@ -1406,8 +1469,8 @@
           "columnIds": [
             "c8be4348-1f18-4d59-9fba-7be61fd76d35"
           ],
-          "x": 237.65966796875,
-          "y": 336.5,
+          "x": 240.99405924479169,
+          "y": 316,
           "direction": "bottom"
         },
         "end": {
@@ -1432,8 +1495,8 @@
           "columnIds": [
             "14db9d2d-873a-4c47-b333-773754c3adf1"
           ],
-          "x": 669.25,
-          "y": 140.75,
+          "x": 670.5,
+          "y": 142,
           "direction": "left"
         },
         "end": {
@@ -1441,8 +1504,8 @@
           "columnIds": [
             "79973406-448a-45fe-9249-c7917c6c4693"
           ],
-          "x": 562.2080078125,
-          "y": 179,
+          "x": 582.21435546875,
+          "y": 168.75,
           "direction": "right"
         },
         "constraintName": "fk_portallocation_to_user",
@@ -1458,8 +1521,8 @@
           "columnIds": [
             "c8be4348-1f18-4d59-9fba-7be61fd76d35"
           ],
-          "x": 367.47900390625,
-          "y": 336.5,
+          "x": 377.482177734375,
+          "y": 316,
           "direction": "bottom"
         },
         "end": {
@@ -1484,8 +1547,8 @@
           "columnIds": [
             "14db9d2d-873a-4c47-b333-773754c3adf1"
           ],
-          "x": 1021.1171875,
-          "y": 140.75,
+          "x": 1042.3798828125,
+          "y": 142,
           "direction": "right"
         },
         "end": {
@@ -1510,7 +1573,7 @@
           "columnIds": [
             "dc80ec8e-b6a8-40f5-94c1-4a179b3969e9"
           ],
-          "x": 1371.25,
+          "x": 1381.25634765625,
           "y": 301.75,
           "direction": "bottom"
         },
@@ -1519,8 +1582,8 @@
           "columnIds": [
             "237fcc49-085e-455c-a5a4-0f50239d51a3"
           ],
-          "x": 1519.798583984375,
-          "y": 487.25,
+          "x": 1409.798883984375,
+          "y": 433.917,
           "direction": "top"
         },
         "constraintName": "fk_company_to_employee",
@@ -1536,8 +1599,8 @@
           "columnIds": [
             "14db9d2d-873a-4c47-b333-773754c3adf1"
           ],
-          "x": 845.18359375,
-          "y": 226.5,
+          "x": 856.43994140625,
+          "y": 227.75,
           "direction": "bottom"
         },
         "end": {
@@ -1545,8 +1608,8 @@
           "columnIds": [
             "a7a991ce-8f89-496d-97a7-1144c6b4a0a0"
           ],
-          "x": 841.68359375,
-          "y": 273,
+          "x": 856.13434140625,
+          "y": 296.3331,
           "direction": "top"
         },
         "constraintName": "fk_portallocation_to_createdthreads",
@@ -1562,8 +1625,8 @@
           "columnIds": [
             "a801262f-a7da-41b0-995a-2683fbaaa869"
           ],
-          "x": 841.68359375,
-          "y": 465,
+          "x": 856.13434140625,
+          "y": 488.3331,
           "direction": "bottom"
         },
         "end": {
@@ -1588,8 +1651,8 @@
           "columnIds": [
             "c8be4348-1f18-4d59-9fba-7be61fd76d35"
           ],
-          "x": 497.29833984375,
-          "y": 336.5,
+          "x": 513.9702962239584,
+          "y": 316,
           "direction": "bottom"
         },
         "end": {
