@@ -33,7 +33,7 @@ module.exports = {
       if (!creator) {
         throw new Error("User does not exist!");
       }
-      creator.createdEvents.push(event);
+      creator.createdEvent.push(event);
       await creator.save();
       return createdEvent;
     } catch (err) {

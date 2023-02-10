@@ -30,6 +30,16 @@ module.exports = buildSchema(`
         state: String!
         createdEvents: [Event!]
         profile: UserProfile
+        cityPortal: CityPortal!
+    }
+
+    type CityPortal {
+        _id: ID!
+        city: String!
+        state: String!
+        users: [User!]
+        createdAt: String
+        updatedAt: String
     }
 
     type Event {
@@ -45,7 +55,9 @@ module.exports = buildSchema(`
         userId: ID!
         token: String!
         tokenExpiration: Int!
+        cityPortal: String!
     }
+
 
     input EventInput {
         title: String!
@@ -77,13 +89,9 @@ module.exports = buildSchema(`
         state: String!
     }
 
-    type PortalLocation {
-        city: String!
-        state: String!
-        users: [User!]
-    }
-
     type RootQuery {
+        getSingleCityPortal(portalId: String!): CityPortal!
+        getCityPortals: [CityPortal!]
         getUsers: [User!]!
         events: [Event!]!
         bookings: [Booking!]!
@@ -91,6 +99,7 @@ module.exports = buildSchema(`
     }
 
     type RootMutation {
+        addCityPortal(city: String!, state: String!): CityPortal!
         login(email: String!, password: String!): AuthData!
         createUser(userInput: UserInput, profileInput: ProfileInput): AuthData!
         editProfile(profileInput: ProfileInput, profId: ID!): UserProfile
