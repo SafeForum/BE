@@ -28,26 +28,26 @@ const user = async (userId) => {
 
 const attachUsers = async (portId) => {
   try {
-    const userData = await User.find({cityPortal: portId});
+    const userData = await User.find({ cityPortal: portId });
     return userData.map((singleUser) => {
-        return {
-          ...singleUser._doc,
-        }
-    })
+      return {
+        ...singleUser._doc,
+      };
+    });
   } catch (err) {
     throw err;
   }
 };
 
 const transformPortal = async (portal) => {
-  const p = await cp.findById(portal.id)
-    return {
-      ...p._doc,
-      city: p.city,
-      state: p.state,
-      users: attachUsers.bind(this, p.id)
-    }
-}
+  const p = await cp.findById(portal.id);
+  return {
+    ...p._doc,
+    city: p.city,
+    state: p.state,
+    users: attachUsers.bind(this, p.id),
+  };
+};
 
 const singleEvent = async (eventId) => {
   try {

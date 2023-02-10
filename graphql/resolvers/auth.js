@@ -39,7 +39,6 @@ module.exports = {
       if (!findPortal) {
         throw new Error("Portal does not exist, please submit application")
       }
-      console.log("This is portal: ", findPortal)
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
       const user = new User({
         email: args.userInput.email,
@@ -80,7 +79,6 @@ module.exports = {
 
       try {
         const login = await User.findOne({ email: args.userInput.email });
-        console.log("This is login: ", login)
         if (!login) {
           throw new Error("User does not exist!");
         }
@@ -139,7 +137,6 @@ module.exports = {
   },
   login: async ({ email, password }) => {
     const user = await User.findOne({ email: email });
-    console.log(email)
     if (!user) {
       throw new Error("User does not exist!");
     }

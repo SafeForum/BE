@@ -90,6 +90,7 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
+        getSingleCityPortal(portalId: String!): CityPortal!
         getCityPortals: [CityPortal!]
         getUsers: [User!]!
         events: [Event!]!
