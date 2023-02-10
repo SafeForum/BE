@@ -17,7 +17,7 @@ module.exports = {
         });
         try {
           const savedPortal = await cityPortal.save();
-          const result = await cp.findById(savedPortal.id);
+          const result = await cp.findById(savedPortal);
           return result;
         } catch (err) {
           throw err;
@@ -35,4 +35,12 @@ module.exports = {
       return transformPortal(portal);
     });
   },
+  getSingleCityPortal: async (args) => {
+    try {
+      const portal = await cp.findById(args.portalId)
+      return transformPortal(portal)
+    } catch(err) {
+      throw err
+    }
+  }
 };
