@@ -1,5 +1,6 @@
 const Event = require("../../models/event");
 const User = require("../../models/user");
+const cp = require("../../models/cityPortal");
 const { dateToString } = require("..//../helpers/date");
 
 const events = async (eventIds) => {
@@ -24,6 +25,29 @@ const user = async (userId) => {
     throw err;
   }
 };
+
+const attachUsers = async (portId) => {
+  try {
+    const userData = await User.find({cityPortal: portId});
+    return userData.map((singleUser) => {
+        return {
+          ...singleUser._doc,
+        }
+    })
+  } catch (err) {
+    throw err;
+  }
+};
+
+const transformPortal = async (portal) => {
+  const p = await cp.findById(portal.id)
+    return {
+      ...p._doc,
+      city: p.city,
+      state: p.state,
+      users: attachUsers.bind(this, p.id)
+    }
+}
 
 const singleEvent = async (eventId) => {
   try {
@@ -54,3 +78,5 @@ const transformBooking = (booking) => {
 
 exports.transformBooking = transformBooking;
 exports.transformEvent = transformEvent;
+exports.transformPortal = transformPortal;
+exports.attachUsers = attachUsers;

@@ -3,7 +3,7 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -182,
+    "scrollTop": -379,
     "scrollLeft": -320,
     "zoomLevel": 0.8,
     "show": {
@@ -163,7 +163,7 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 670.5,
           "top": 56.25,
           "zIndex": 13,
@@ -1444,7 +1444,7 @@
           "active": false,
           "left": 1173.0001,
           "top": 680.778,
-          "zIndex": 8,
+          "zIndex": 16,
           "widthName": 60,
           "widthComment": 120,
           "color": "#9C27B0"

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 //models
 const User = require("../../models/user");
 const Profile = require("../../models/profile");
+const cp = require("../../models/cityPortal");
 
 // let userInfo;
 
@@ -28,8 +29,17 @@ module.exports = {
         throw new Error("User already exists.");
       }
       if (!bioLimit) {
-        throw new Error("Max Characters Reached for Occupation");
+        throw new Error("Max Characters for Occupation is 20");
       }
+      //add user to portal
+      const findPortal = await cp.findOne({
+        city: args.userInput.city,
+        state: args.userInput.state,
+      });
+      if (!findPortal) {
+        throw new Error("Portal does not exist, please submit application")
+      }
+      console.log("This is portal: ", findPortal)
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
       const user = new User({
         email: args.userInput.email,
@@ -39,11 +49,13 @@ module.exports = {
         firstName: args.userInput.firstName,
         lastName: args.userInput.lastName,
         dob: args.userInput.dob,
+        cityPortal:  findPortal,
         profile: null,
       });
       const savedUser = await user.save();
       const userData = await User.findOne(savedUser);
-
+      findPortal.user.push(userData)
+      await findPortal.save();
       const newProfile = new Profile({
         bio: args.profileInput.bio || null,
         avatar: args.profileInput.avatar || null,
@@ -84,8 +96,7 @@ module.exports = {
             expiresIn: "1h",
           }
         );
-        console.log("This is token :", token)
-        return { merged, userId: login.id, token: token, tokenExpiration: 1 };
+        return { userId: login.id, token: token, tokenExpiration: 1, cityPortal: login.cityPortal };
       }
        catch (error) {
         throw new Error("Your account has been created, please log in!")
@@ -144,6 +155,6 @@ module.exports = {
         expiresIn: "1h",
       }
     );
-    return { userId: user.id, token: token, tokenExpiration: 1 };
+    return { userId: user.id, token: token, tokenExpiration: 1, cityPortal: user.cityPortal };
   },
 };
