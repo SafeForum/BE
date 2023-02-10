@@ -36,6 +36,11 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "UserProfile",
   },
+  cityPortal: {
+    type: Schema.Types.ObjectId,
+    ref: "UserProfile",
+    required: true
+  },
   createdEvents: [
     {
       type: Schema.Types.ObjectId,
