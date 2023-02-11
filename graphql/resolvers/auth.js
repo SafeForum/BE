@@ -53,7 +53,7 @@ module.exports = {
       });
       const savedUser = await user.save();
       const userData = await User.findOne(savedUser);
-      findPortal.user.push(userData)
+      findPortal.users.push(userData)
       await findPortal.save();
       const newProfile = new Profile({
         bio: args.profileInput.bio || null,
