@@ -49,7 +49,9 @@ module.exports = {
         lastName: args.userInput.lastName,
         dob: args.userInput.dob,
         cityPortal:  findPortal,
+        createdEvents: null,
         profile: null,
+        comments: null
       });
       const savedUser = await user.save();
       const userData = await User.findOne(savedUser);

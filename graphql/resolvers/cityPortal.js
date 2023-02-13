@@ -1,9 +1,9 @@
 //models
 const User = require("../../models/user");
+const MB = require("../../models/MessageBoard/messageBoard")
 const cp = require("../../models/cityPortal");
-const { argsToArgsConfig } = require("graphql/type/definition");
 
-const { transformPortal, attachUsers } = require("./merge");
+const { transformPortal } = require("./merge");
 
 module.exports = {
   addCityPortal: async (args, req) => {
@@ -14,11 +14,24 @@ module.exports = {
         const cityPortal = new cp({
           city: args.city,
           state: args.state,
+          messageBoard: null,
         });
         try {
           const savedPortal = await cityPortal.save();
           const result = await cp.findById(savedPortal);
-          return result;
+          const messageBoard = new MB({
+            threads: null,
+            cityPortal: result
+          })
+          const savedMessageBoard = await messageBoard.save()
+          result.messageBoard = savedMessageBoard;
+          const finalPortal = await result.save();
+          //does finalPortal have a message board?
+          if (!finalPortal.messageBoard) {
+            finaPortal
+            throw new "City Portal has no Message Board"
+          }
+          return finalPortal;
         } catch (err) {
           throw err;
         }
