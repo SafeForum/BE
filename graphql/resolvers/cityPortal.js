@@ -20,7 +20,6 @@ module.exports = {
           const savedPortal = await cityPortal.save();
           const result = await cp.findById(savedPortal);
           const messageBoard = new MB({
-            threads: null,
             cityPortal: result
           })
           const savedMessageBoard = await messageBoard.save()
