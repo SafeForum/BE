@@ -12,7 +12,11 @@ const cityPortalSchema = new Schema(
       type: String,
       required: true,
     },
-    user: [
+    messageBoard: {
+      type: Schema.Types.ObjectId,
+      ref: "MessageBoard",
+    },
+    users: [
       {
         type: Schema.Types.ObjectId,
         ref: "User",

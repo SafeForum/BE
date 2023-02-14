@@ -1,7 +1,7 @@
 const Event = require("../../models/event");
 const User = require("../../models/user");
 const cp = require("../../models/cityPortal");
-const { dateToString } = require("..//../helpers/date");
+const { dateToString } = require("../../helpers/date");
 
 const events = async (eventIds) => {
   try {
@@ -80,3 +80,4 @@ exports.transformBooking = transformBooking;
 exports.transformEvent = transformEvent;
 exports.transformPortal = transformPortal;
 exports.attachUsers = attachUsers;
+exports.user = user;

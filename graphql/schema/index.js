@@ -9,6 +9,43 @@ module.exports = buildSchema(`
         updatedAt: String!
     }
 
+    type MessageBoard {
+        _id: ID!
+        threads: [Thread]
+        createdAt: String!
+        updatedAt: String!
+        cityPortal: CityPortal!
+    }
+
+    type Thread {
+        _id: ID!
+        messageBoard: MessageBoard!
+        subject: String!
+        body: String!
+        creator: User!
+        subscribers: [User]
+        comments: [Comment]
+        createdAt: String!
+        updatedAt: String!
+    }
+
+    type Comment {
+        _id: ID!
+        comment: String!
+        creator: User!
+        likes: [Likes]
+        createdAt: String!
+        updatedAt: String!
+        thread: Thread!
+    }
+
+    type Likes {
+        _id: ID!
+        comment: Comment!
+        user: User!
+        thread: Thread!
+    }
+
     type UserProfile {
         _id: ID!
         user: User!
@@ -31,6 +68,7 @@ module.exports = buildSchema(`
         createdEvents: [Event!]
         profile: UserProfile
         cityPortal: CityPortal!
+        comments: [Comment]
     }
 
     type CityPortal {
@@ -38,6 +76,7 @@ module.exports = buildSchema(`
         city: String!
         state: String!
         users: [User!]
+        messageBoard: MessageBoard!
         createdAt: String
         updatedAt: String
     }
@@ -79,6 +118,11 @@ module.exports = buildSchema(`
         password: String!
     }
 
+    input ThreadInput {
+        subject: String!
+        body: String!
+    }
+
     input UserInput {
         email: String!
         password: String!
@@ -96,9 +140,15 @@ module.exports = buildSchema(`
         events: [Event!]!
         bookings: [Booking!]!
         profile: [UserProfile!]!
+        getComments(threadId: String!): [Comment!]
+        getThreads(messageBoardId: String!): [Thread!]
+        getMessageBoards(portalId: String!): [MessageBoard!]
     }
 
     type RootMutation {
+        addComment(threadId: String!, commentInput: String!): [Comment!]
+        addThreads(messageBoardId: String!): [Thread!]
+        addMessageBoard(portalId: String!): [MessageBoard!]
         addCityPortal(city: String!, state: String!): CityPortal!
         login(email: String!, password: String!): AuthData!
         createUser(userInput: UserInput, profileInput: ProfileInput): AuthData!
