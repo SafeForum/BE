@@ -135,6 +135,7 @@ module.exports = buildSchema(`
 
     type RootQuery {
         getSingleCityPortal(portalId: String!): CityPortal!
+        getMessageBoard(messageBoardId: String!): MessageBoard!
         getCityPortals: [CityPortal!]
         getUsers: [User!]!
         events: [Event!]!
@@ -142,16 +143,15 @@ module.exports = buildSchema(`
         profile: [UserProfile!]!
         getComments(threadId: String!): [Comment!]
         getThreads(messageBoardId: String!): [Thread!]
-        getMessageBoards(portalId: String!): [MessageBoard!]
     }
 
     type RootMutation {
-        addComment(threadId: String!, commentInput: String!): [Comment!]
-        addThreads(messageBoardId: String!): [Thread!]
+        addComment(threadId: String!, commentInput: String!, userId: String!): Comment!
+        addThread(messageBoardId: String!, userId: String!, threadInput: ThreadInput!): Thread!
         addMessageBoard(portalId: String!): [MessageBoard!]
         addCityPortal(city: String!, state: String!): CityPortal!
         login(email: String!, password: String!): AuthData!
-        createUser(userInput: UserInput, profileInput: ProfileInput): AuthData!
+        createUser(userInput: UserInput!, profileInput: ProfileInput): AuthData!
         editProfile(profileInput: ProfileInput, profId: ID!): UserProfile
         addProfile(profileInput: ProfileInput): UserProfile
         createEvent(eventInput: EventInput): Event
