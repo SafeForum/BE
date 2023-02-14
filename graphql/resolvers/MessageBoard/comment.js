@@ -2,7 +2,6 @@ const Comment = require("../../../models/MessageBoard/comment");
 const Thread = require("../../../models/MessageBoard/thread");
 const User = require("../../../models/user");
 
-const { transformEvent } = require("../merge");
 const { transformComment } = require("./merge");
 
 module.exports = {
@@ -26,8 +25,7 @@ module.exports = {
     // }
     const comment = new Comment({
         comment: args.commentInput,
-        creator: req.userId,
-        likes: null,
+        creator: args.userId,
         thread: args.threadId,
     })
     let newComment;
@@ -37,10 +35,12 @@ module.exports = {
           throw new Error("User does not exist!");
         }
         const result = await comment.save()
+        getThread.comments.push(result)
+        getThread.save()
         newComment = transformComment(result)
-        getThread.comments.push(comment)
     } catch (err) {
       throw err;
     }
+    return newComment
   }
 };

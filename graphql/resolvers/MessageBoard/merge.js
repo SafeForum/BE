@@ -6,7 +6,7 @@ const { user } = require("../../resolvers/merge")
 
 const { dateToString } = require("../../../helpers/date");
 
-// const comment = async () => {
+// const attachThread = async (threadId) => {
 //     try {
 
 //     }
@@ -16,7 +16,6 @@ const transformComment = async (comment) => {
   return {
     ...comment._doc,
     creator: user.bind(this, comment.creator),
-    thread: attachThread.bind(this, t.id),
     createdAt: dateToString(comment._doc.createdAt),
     UpdatedAt: dateToString(comment._doc.createdAt),
   };
