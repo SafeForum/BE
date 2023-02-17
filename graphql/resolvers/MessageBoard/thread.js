@@ -52,4 +52,19 @@ module.exports = {
     }
     return newThread;
   },
+  // Delete a thread
+  deleteThread: async (args, req) => {
+    try {
+      const findThread = await Thread.findById(args.threadId);
+      if (!findThread) {
+        throw new Error("Thread does not Exist");
+      }
+      resolve(args) {
+      return Thread.findByIdAndRemove(args.threadId);
+      }
+    } catch (err) {
+      throw err;
+    }
+  },
 };
+
