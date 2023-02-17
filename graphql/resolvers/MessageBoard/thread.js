@@ -52,19 +52,30 @@ module.exports = {
     }
     return newThread;
   },
-  // Delete a thread
-  deleteThread: async (args, req) => {
+  // Delete a thread I think this is garbage so I am going to model mine after cancelBooking
+//   deleteThread: async (args, req) => {
+//     try {
+//       const findThread = await Thread.findById(args.threadId);
+//       if (!findThread) {
+//         throw new Error("Thread does not Exist");
+//       }
+//       resolve(args) {
+//       return Thread.findByIdAndRemove(args.threadId);
+//       }
+//     } catch (err) {
+//       throw err;
+//     }
+//   },
+
+  deleteThread: async args => {
     try {
-      const findThread = await Thread.findById(args.threadId);
-      if (!findThread) {
-        throw new Error("Thread does not Exist");
-      }
-      resolve(args) {
-      return Thread.findByIdAndRemove(args.threadId);
-      }
+      const foundThread = await Thread.findById(args.threadId);
+      await Thread.deleteOne({ _id: args.threadId });
+      return foundThread;
     } catch (err) {
       throw err;
     }
   },
 };
+
 
