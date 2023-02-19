@@ -166,6 +166,7 @@ module.exports = buildSchema(`
         deleteUser(userId: ID!): User!
         deleteComment(commentId: String!): Comment!
         deleteThread(threadId: String!, userId: String!): Thread!
+        deleteComment(commentId: String!): Comment!
     }
 
     schema {
