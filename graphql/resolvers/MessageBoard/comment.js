@@ -24,23 +24,41 @@ module.exports = {
     //   throw new Error("Unauthenticated!");
     // }
     const comment = new Comment({
-        comment: args.commentInput,
-        creator: args.userId,
-        thread: args.threadId,
-    })
+      comment: args.commentInput,
+      creator: args.userId,
+      thread: args.threadId,
+    });
     let newComment;
     try {
-        const getThread = await Thread.findById(args.threadId);
-        if (!getThread) {
-          throw new Error("User does not exist!");
-        }
-        const result = await comment.save()
-        getThread.comments.push(result)
-        getThread.save()
-        newComment = transformComment(result)
+      const getThread = await Thread.findById(args.threadId);
+      if (!getThread) {
+        throw new Error("Thread does not exist!");
+      }
+      const result = await comment.save();
+      getThread.comments.push(result);
+      getThread.save();
+      newComment = transformComment(result);
     } catch (err) {
       throw err;
     }
-    return newComment
-  }
+    return newComment;
+  },
+  deleteComment: async (args, req) => {
+    // if (!req.isAuth) {
+    //   throw new Error("Unauthenticated!");
+    // }
+    try {
+      const findComment = await Comment.findById(args.commentId);
+      if (!findComment) {
+        throw new Error("No Comment found");
+      }
+      const result = await findComment.deleteOne(findComment);
+      if (!result) {
+        throw new Error("Could not delete comment");
+      }
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  },
 };
