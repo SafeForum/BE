@@ -3,7 +3,7 @@ const Thread = require("../../../models/MessageBoard/thread");
 const User = require("../../../models/user");
 const MBoard = require("../../../models/MessageBoard/messageBoard");
 
-const { transformComment } = require("./merge");
+
 
 module.exports = {
   getThreads: async (args, req) => {
@@ -51,5 +51,5 @@ module.exports = {
       throw err;
     }
     return newThread;
-  },
+  }
 };
