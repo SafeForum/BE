@@ -51,6 +51,39 @@ module.exports = {
       throw err;
     }
     return newThread;
-  }
+  },
+
+
+  deleteThread: async args => {
+
+    try {
+      const foundThread = await Thread.findById(args.threadId);
+      if (!foundThread) {
+        throw new Error("Thread not found!");
+      }
+      const messageBoard = await MBoard.findById(foundThread.messageBoard);
+      if (!messageBoard) {
+        throw new Error("Message Board not found!");
+      }
+
+      try {
+        const index = messageBoard.threads.indexOf(foundThread, 0);
+        if (index !== -1) {
+          throw new Error("Thread does not exist");
+        }
+        const x = messageBoard.threads.splice(index, 1);
+        console.log("This just got deleted: ", x);
+        messageBoard.save();
+      } catch (error) {
+        throw(error)
+      }
+      await Thread.deleteOne(foundThread);
+
+
+      return foundThread;
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
