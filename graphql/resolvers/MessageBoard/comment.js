@@ -52,6 +52,23 @@ module.exports = {
       if (!findComment) {
         throw new Error("No Comment found");
       }
+      const findThread = await Thread.findById(findComment.thread);
+      console.log("This is thread: ", findThread.comments);
+      if (!findThread) {
+        throw new Error("No Thread found");
+      }
+      try {
+        const index = findThread.comments.indexOf(findComment, 0);
+        if (index !== -1) {
+          throw new Error("Comment does not exist");
+        }
+        const deleted = findThread.comments.splice(index, 1);
+        console.log("This is deleted: ", deleted);
+        findThread.save();
+      } catch {
+        throw new Error("Unable to delete comment from thread");
+      }
+
       const result = await findComment.deleteOne(findComment);
       if (!result) {
         throw new Error("Could not delete comment");
