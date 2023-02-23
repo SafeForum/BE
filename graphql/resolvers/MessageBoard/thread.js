@@ -66,7 +66,7 @@ module.exports = {
         throw new Error("Message Board not found!");
       }
       //check that the user deleting the thread is the same one who created it
-      const isThreadAuthor = args.userId === Thread._id.userId;
+      const isThreadAuthor = args.userId == foundThread.creator;
       if (!isThreadAuthor) {
         throw new Error("User attempting to delete the thread is not the author!");
       }
