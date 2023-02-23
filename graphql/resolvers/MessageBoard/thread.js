@@ -44,7 +44,7 @@ module.exports = {
       }
       const result = await thread.save();
       newThread = await Thread.findById(result);
-      console.log("This is result: ", messageBoard);
+      console.log("This is the result: ", messageBoard);
       messageBoard.threads.push(newThread);
       messageBoard.save();
     } catch (err) {
@@ -65,6 +65,12 @@ module.exports = {
       if (!messageBoard) {
         throw new Error("Message Board not found!");
       }
+      //check that the user deleting the thread is the same one who created it
+      const isThreadAuthor = args.userId === Thread._id.userId;
+      if (!isThreadAuthor) {
+        throw new Error("User attempting to delete the thread is not the author!");
+      }
+
 
       try {
         const index = messageBoard.threads.indexOf(foundThread, 0);
