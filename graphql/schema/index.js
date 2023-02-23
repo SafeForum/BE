@@ -55,7 +55,7 @@ module.exports = buildSchema(`
         createdAt: String
         updatedAt: String
     }
-        
+
     type User {
         _id: ID!
         email: String!
@@ -111,7 +111,7 @@ module.exports = buildSchema(`
         date: String!
     }
 
-    input ProfileInput {  
+    input ProfileInput {
         avatar: String
         bio: String
         occupation: String
