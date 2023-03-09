@@ -53,9 +53,12 @@ module.exports = {
         throw new Error("No Comment found");
       }
       const findThread = await Thread.findById(findComment.thread);
-      console.log("This is thread: ", findThread.comments);
       if (!findThread) {
         throw new Error("No Thread found");
+      }
+      const isAuthor = args.userId == findComment.creator;
+      if (!isAuthor) {
+        throw new Error("You are not the author of this comment");
       }
       try {
         const index = findThread.comments.indexOf(findComment, 0);

@@ -164,7 +164,7 @@ module.exports = buildSchema(`
         bookEvent(eventId: ID!): Booking!
         cancelBooking(bookingId: ID!): Event!
         deleteUser(userId: ID!): User!
-        deleteComment(commentId: String!): Comment!
+        deleteComment(commentId: String!, userId: String!): Comment!
         deleteThread(threadId: String!, userId: String!): Thread!
     }
 
