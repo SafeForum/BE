@@ -55,11 +55,11 @@ module.exports = buildSchema(`
         createdAt: String
         updatedAt: String
     }
-        
+
     type User {
         _id: ID!
         email: String!
-        password: String
+        password: String!
         firstName: String!
         lastName: String!
         dob: String!
@@ -69,6 +69,12 @@ module.exports = buildSchema(`
         profile: UserProfile
         cityPortal: CityPortal!
         comments: [Comment]
+    }
+
+    enum AdminPrivs {
+        Admin
+        User
+        Moderator
     }
 
     type CityPortal {
@@ -105,7 +111,7 @@ module.exports = buildSchema(`
         date: String!
     }
 
-    input ProfileInput {  
+    input ProfileInput {
         avatar: String
         bio: String
         occupation: String
@@ -158,6 +164,7 @@ module.exports = buildSchema(`
         bookEvent(eventId: ID!): Booking!
         cancelBooking(bookingId: ID!): Event!
         deleteUser(userId: ID!): User!
+        deleteComment(commentId: String!): Comment!
         deleteThread(threadId: String!, userId: String!): Thread!
     }
 

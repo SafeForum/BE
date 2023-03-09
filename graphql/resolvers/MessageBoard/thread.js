@@ -3,7 +3,7 @@ const Thread = require("../../../models/MessageBoard/thread");
 const User = require("../../../models/user");
 const MBoard = require("../../../models/MessageBoard/messageBoard");
 
-const { transformComment } = require("./merge");
+
 
 module.exports = {
   getThreads: async (args, req) => {
@@ -52,10 +52,8 @@ module.exports = {
     }
     return newThread;
   },
-  
 
   deleteThread: async args => {
-    
     try {
       const foundThread = await Thread.findById(args.threadId);
       if (!foundThread) {
@@ -70,8 +68,6 @@ module.exports = {
       if (!isThreadAuthor) {
         throw new Error("User attempting to delete the thread is not the author!");
       }
-    
-      
       try {
         const index = messageBoard.threads.indexOf(foundThread, 0);
         if (index !== -1) {
@@ -83,9 +79,7 @@ module.exports = {
       } catch (error) {
         throw(error)
       }
-      await Thread.deleteOne(foundThread);
-      
-
+      await Thread.deleteOne(foundThread)
       return foundThread;
     } catch (err) {
       throw err;
