@@ -6,9 +6,11 @@ const cors = require("cors");
 require('dotenv').config()
 
 //graphQL
-const gqlSchema = require("./graphql/schema");
+
 const gqlResolver = require("./graphql/resolvers");
 const isAuth = require("./middleware/isAuth");
+const gqlSchema = require("./graphql/schema");
+const { schemaWithPermissions } = require("./middleware/permissions");
 
 const app = express();
 
@@ -21,10 +23,11 @@ app.get("/", function (req, res, next) {
   res.send("Up!");
 });
 
+
 app.use(
   "/graphql",
   graphqlHTTP({
-    schema: gqlSchema,
+    schema: schemaWithPermissions,
     rootValue: gqlResolver,
     graphiql: true,
   })
