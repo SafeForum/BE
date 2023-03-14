@@ -9,6 +9,7 @@ require('dotenv').config()
 
 const gqlResolver = require("./graphql/resolvers");
 const isAuth = require("./middleware/isAuth");
+// since this is no longer used the line below can be deleted
 const gqlSchema = require("./graphql/schema");
 const { schemaWithPermissions } = require("./middleware/permissions");
 
