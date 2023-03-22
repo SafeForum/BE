@@ -52,6 +52,10 @@ const userSchema = new Schema({
       ref: "Event",
     },
   ],
+  role: {
+    type: Schema.Types.ObjectId,
+    ref: "ADMIN_PRIVS",
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);
