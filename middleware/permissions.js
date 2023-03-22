@@ -1,3 +1,5 @@
+// This is the middleware where we define our permissions per role or state such as isAuthenticated, isAdmin, etc.
+
 const { shield, rule, inputRule } = require("graphql-shield");
 const { applyMiddleware } = require("graphql-middleware");
 
