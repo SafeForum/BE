@@ -27,12 +27,12 @@ module.exports = {
     });
     let createdEvent;
     try {
-      const result = await event.save();
-      createdEvent = transformEvent(result);
       const creator = await User.findById(req.userId);
       if (!creator) {
         throw new Error("User does not exist!");
       }
+      const result = await event.save();
+      createdEvent = transformEvent(result);
       creator.createdEvent.push(event);
       await creator.save();
       return createdEvent;

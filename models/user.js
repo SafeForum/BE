@@ -35,11 +35,16 @@ const userSchema = new Schema({
   profile: {
     type: Schema.Types.ObjectId,
     ref: "UserProfile",
+    // required: true,
   },
   cityPortal: {
     type: Schema.Types.ObjectId,
-    ref: "UserProfile",
+    ref: "CityPortal",
     required: true
+  },
+  comments: {
+    type: Schema.Types.ObjectId,
+    ref: "Comment",
   },
   createdEvents: [
     {
@@ -47,6 +52,10 @@ const userSchema = new Schema({
       ref: "Event",
     },
   ],
+  role: {
+    type: Schema.Types.ObjectId,
+    ref: "ADMIN_PRIVS",
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);
