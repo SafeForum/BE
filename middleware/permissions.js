@@ -26,7 +26,7 @@ const isNotAlreadyRegistered = inputRule()((yup => yup.object({
 
 const permissions = shield({
   RootQuery: {
-    getUsers: isAuthenticated,
+    // getUsers: isAuthenticated,
   },
   RootMutation: {
     createUser: isNotAlreadyRegistered,
