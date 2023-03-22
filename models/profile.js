@@ -12,14 +12,32 @@ const userProfileSchema = new Schema(
       type: String,
       required: false,
     },
+    displayName: {
+      type: String,
+      required: true,
+    },
     occupation: {
       type: String,
-      required: false,
     },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    //fix socialStatus: { Likes, Follows },
+    
+    twitter: {
+      type: Schema.Types.ObjectId,
+      
+    },
+    facebook: {
+      type: Schema.Types.ObjectId,
+      
+    },
+    instagram: {
+      type: Schema.Types.ObjectId,
+      
+    },
+
   },
   { timestamps: true }
 );

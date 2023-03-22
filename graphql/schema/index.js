@@ -45,6 +45,10 @@ module.exports = buildSchema(`
         user: User!
         thread: Thread!
     }
+// not sure what to do here yet
+    type Follows {
+        _id: ID!
+    }
 
     type UserProfile {
         _id: ID!
@@ -54,6 +58,16 @@ module.exports = buildSchema(`
         occupation: String
         createdAt: String
         updatedAt: String
+        socialStatus: [SocialStatus]
+        twitter: String
+        facebook: String
+        instagram: String
+
+    }
+
+    type SocialStatus {
+        likes: [Likes]
+        follows: [Follows]
     }
 
     type User {
@@ -62,6 +76,7 @@ module.exports = buildSchema(`
         password: String!
         firstName: String!
         lastName: String!
+        displayName: String
         dob: String!
         city: String!
         state: String!
@@ -70,6 +85,8 @@ module.exports = buildSchema(`
         cityPortal: CityPortal!
         comments: [Comment]
         role: ADMIN_PRIVS
+        
+
     }
 
     enum ADMIN_PRIVS {
@@ -114,7 +131,11 @@ module.exports = buildSchema(`
 
     input ProfileInput {
         avatar: String
+        displayName: String
         bio: String
+        twitter: String
+        facebook: String
+        instagram: String
         occupation: String
         createdAt: String
         updatedAt: String

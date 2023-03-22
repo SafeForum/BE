@@ -57,6 +57,7 @@ module.exports = {
       const userData = await User.findOne(savedUser);
       findPortal.users.push(userData)
       await findPortal.save();
+      // update Twitter etc
       const newProfile = new Profile({
         bio: args.profileInput.bio || null,
         avatar: args.profileInput.avatar || null,
@@ -105,11 +106,18 @@ module.exports = {
       throw err;
     }
   },
+
+  // update
   editProfile: async (args) => {
     const update = {
-      bio: args.profileInfo.bio,
       avatar: args.profileInfo.avatar,
+      bio: args.profileInfo.bio,
+      displayName: args.profileInfo.displayName,
       occupation: args.profileInfo.occupation,
+      user: args.profileInfo.user,
+      twitter: args.profileInfo.twitter,
+      facebook: args.profileInfo.facebook,
+      instagram: args.profileInfo.instagram,
     };
     try {
       const findProfile = await Profile.findOneAndUpdate(args.profId, update);
