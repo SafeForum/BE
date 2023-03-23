@@ -45,7 +45,6 @@ module.exports = buildSchema(`
         user: User!
         thread: Thread!
     }
-// not sure what to do here yet
     type Follows {
         _id: ID!
     }
