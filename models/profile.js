@@ -23,8 +23,6 @@ const userProfileSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    //fix socialStatus: { Likes, Follows },
-    
     twitter: {
       type: Schema.Types.ObjectId,
       

@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-//models
+// models
 const User = require("../../models/user");
 const Profile = require("../../models/profile");
 const cp = require("../../models/cityPortal");
@@ -31,7 +31,7 @@ module.exports = {
       if (!bioLimit) {
         throw new Error("Max Characters for Occupation is 20");
       }
-      //add user to portal
+      // add user to portal
       const findPortal = await cp.findOne({
         city: args.userInput.city,
         state: args.userInput.state,
@@ -65,7 +65,7 @@ module.exports = {
         user: userData,
       });
       const savedProfile = await newProfile.save();
-      ///save profile
+      // save profile
       let merged;
       try {
         const mergeUser = await User.findById(userData.id);
