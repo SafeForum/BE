@@ -69,9 +69,10 @@ module.exports = buildSchema(`
         profile: UserProfile
         cityPortal: CityPortal!
         comments: [Comment]
+        role: ADMIN_PRIVS
     }
 
-    enum AdminPrivs {
+    enum ADMIN_PRIVS {
         Admin
         User
         Moderator
