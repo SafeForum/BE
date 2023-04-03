@@ -5,6 +5,7 @@ const cityPortalResolver = require("./cityPortal")
 const messageBoardResolver = require("./MessageBoard/messageBoard")
 const commentResolver = require("./MessageBoard/comment")
 const threadResolver = require("./MessageBoard/thread")
+const passwordResolver=require("./password")
 
 const rootResolver = {
   ...authResolver,
@@ -14,6 +15,7 @@ const rootResolver = {
   ...messageBoardResolver,
   ...commentResolver,
   ...threadResolver,
+  ...passwordResolver
 };
 
 module.exports = rootResolver;
