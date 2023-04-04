@@ -2,12 +2,16 @@ const bcrypt = require("bcryptjs");
 
 //models
 const User = require("../../models/user");
+const password=require("../../models/password")
 
 module.exports = {
     editPassword: async (args, req) => {
         try {
+            console.log("editPassword");
             const hashedOldPassword= await bcrypt.hash(args.oldPassword);
-            const hashedNewPassword=await bcrypt.hash(args.newPassword);
+            console.log("harshing");
+            const hashedNewPassword=await bcrypt.hash(args.Password);
+            
             const user = await User.findById(args.userId);
             
             if (!user) {
