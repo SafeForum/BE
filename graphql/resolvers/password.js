@@ -5,9 +5,7 @@ const password = require("../../models/password")
 
 module.exports = {
     editPassword: async (args, req) => {
-        try {
-           
-            const hashedOldPassword = await bcrypt.hash(args.oldPassword,12);     
+        try {   
             const hashedNewPassword = await bcrypt.hash(args.password,12);
             const user = await User.findById(args.userId);
             if (!user) {
