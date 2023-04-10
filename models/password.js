@@ -1,17 +1,20 @@
-const mongoose=require('mangoose');
+const mongoose = require('mongoose');
 const user = require('./user');
+const Schema = mongoose.Schema;
 
-const Schema=mongoose.schema;
-
-const passwordSchema= new Schema({
-    password:{
-        type:String,
-        required:true
+const passwordSchema = new Schema({
+    oldPassword: {
+        type: String,
+        required: true
     },
-    userId:{
-        type:Schema.types.ObjectId,
-        ref:'user'
+    Password: {
+        type: String,
+        required: true
+    },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
-module.exports=mongoose.model('password',passwordSchema)
+module.exports = mongoose.model('Password', passwordSchema)
