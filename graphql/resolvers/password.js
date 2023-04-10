@@ -14,7 +14,7 @@ module.exports = {
 
             const user = await User.findById(args.userId);
             console.log("user Id",args.userId);
-            console.log("user details",user)
+          //  console.log("user details",user)
 
             if (!user) {
                 throw new Error("User does not exit")
@@ -28,8 +28,9 @@ module.exports = {
                 throw new Error("Password is incorrect!");
             }
             try {
-                const updatePassword = await User.findOneAndUpdate(args.userId, update,{new:true});
+                const updatePassword = await User.findOneAndUpdate({_id:user}, update,{new:true});
                 console.log("updatedpassword",updatePassword)
+
                 if (!updatePassword) {
                     throw new Error("Password cannot be updated")
                 }
