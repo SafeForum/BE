@@ -153,6 +153,7 @@ module.exports = buildSchema(`
     }
 
     type RootMutation {
+        editPassword(userId:String!,oldPassword:String!,password:String!):User
         addComment(threadId: String!, commentInput: String!, userId: String!): Comment!
         addThread(messageBoardId: String!, userId: String!, threadInput: ThreadInput!): Thread!
         addMessageBoard(portalId: String!): [MessageBoard!]
