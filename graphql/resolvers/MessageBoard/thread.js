@@ -48,7 +48,6 @@ module.exports = {
       }
       const result = await thread.save();
       newThread = await Thread.findById(result);
-      console.log("This is the result: ", messageBoard);
       messageBoard.threads.push(newThread);
       messageBoard.save();
     } catch (err) {
