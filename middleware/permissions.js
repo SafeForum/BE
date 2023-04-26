@@ -31,6 +31,9 @@ const permissions = shield({
   RootMutation: {
     createUser: isNotAlreadyRegistered,
   },
+},
+{
+  allowExternalErrors: true
 });
 
 const schemaWithPermissions = applyMiddleware(gqlSchema, permissions);
