@@ -30,7 +30,9 @@ app.use(
   graphqlHTTP({
     schema: schemaWithPermissions,
     rootValue: gqlResolver,
-    graphiql: true,
+    graphiql: {
+      headerEditorEnabled: true,
+    },
   })
 );
 
