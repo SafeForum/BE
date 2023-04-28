@@ -7,9 +7,9 @@ const Profile = require("../../models/profile");
 const cp = require("../../models/cityPortal");
 
 // let userInfo;
-console.log("auth.js")
+
 const attachProfile = async (profileId) => {
-  console.log("auth=attach profile")
+
   try {
     const profileData = await Profile.findById(profileId);
     return {
@@ -23,16 +23,15 @@ const attachProfile = async (profileId) => {
 
 
 module.exports = {
-  
+
   createUser: async (args, req) => {
-    console.log("arg", args)
+
     try {
-      console.log("createUserdf",args.userInput)
       const existingUser = await User.findOne({ email: args.userInput.email });
       const bioLimit = args.profileInput.occupation.length <= 20 ? true : false;
-      console.log("exituser", existingUser)
+
       if (existingUser) {
-        console.log("createuser", existingUser)
+
         throw new Error("User already exists.");
       }
       if (!bioLimit) {
@@ -145,17 +144,16 @@ module.exports = {
     }
   },
 
-  getSingleUser: async(args)=>{
-    try{
-      console.log("single user try",args.userId)
-      const singleUser=await User.findById(args.userId)
-      console.log("sinhgle user",singleUser)
+  getSingleUser: async (args) => {
+    try {
+      const singleUser = await User.findById(args.userId)
       return singleUser
     }
-    catch(err){
+    catch (err) {
       throw new Error("User detail not available")
     }
   },
+  
   login: async ({ email, password }) => {
     const user = await User.findOne({ email: email });
     if (!user) {
