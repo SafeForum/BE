@@ -1,6 +1,6 @@
 const { shield, rule, inputRule } = require("graphql-shield");
 const { applyMiddleware } = require("graphql-middleware");
-
+const User = require("../models/user");
 const gqlSchema = require("../graphql/schema");
 
 const isAuthenticated = rule()(async (parent, args, ctx, info) => {
@@ -9,29 +9,25 @@ const isAuthenticated = rule()(async (parent, args, ctx, info) => {
 
 // the following should work with enum in the schema somehow...
 const isAdmin = rule()(async (parent, args, ctx, info) => {
-  const user = users.find(({ id }) => id === ctx.headers["userId"]);
-  return user && user.role === "Admin"
+  const user = User.find(({ id }) => id === ctx.headers["userId"]);
+  return user && user.role === "Admin";
 });
 
-const isNotAlreadyRegistered = inputRule()((yup => yup.object({
 
-  input: yup.object({
-    name: yup.string().required(),
-    email: yup.string().email().required().notOneOf(
-      users.map(({email }) => email),
-      "A user exists with this email. Choose another."
-    )
-  })
-})))
-
-const permissions = shield({
-  RootQuery: {
-    // getUsers: isAuthenticated,
+const permissions = shield(
+  {
+    RootQuery: {
+      // getUsers: isAuthenticated,
+    },
+    RootMutation: {
+      createUser: true,
+    },
   },
-  RootMutation: {
-    createUser: isNotAlreadyRegistered,
-  },
-});
+  {
+    allowExternalErrors: true,
+    debug: true,
+  }
+);
 
 const schemaWithPermissions = applyMiddleware(gqlSchema, permissions);
 
