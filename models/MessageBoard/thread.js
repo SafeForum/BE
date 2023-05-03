@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const thread = new Schema(
+const threadSchema = new Schema(
   {
     subject: {
       type: String,
@@ -34,4 +34,4 @@ const thread = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Thread", thread);
+module.exports = mongoose.model("Thread", threadSchema);

@@ -28,7 +28,7 @@ app.get("/", function (req, res, next) {
 app.use(
   "/graphql",
   graphqlHTTP({
-    schema: schemaWithPermissions,
+    schema: gqlSchema,
     rootValue: gqlResolver,
     graphiql: true,
   })

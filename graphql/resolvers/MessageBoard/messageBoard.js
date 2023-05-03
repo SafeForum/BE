@@ -2,6 +2,7 @@ const Comment = require("../../../models/MessageBoard/comment");
 const Thread = require("../../../models/MessageBoard/thread");
 const MB = require("../../../models/MessageBoard/messageBoard");
 const User = require("../../../models/user");
+const { transformMessageBoard } = require("./merge");
 
 module.exports = {
   getMessageBoard: async (args, req) => {
@@ -10,7 +11,7 @@ module.exports = {
       if (!findMessageBoard) {
         throw new Error("Thread does not Exist");
       }
-      return findMessageBoard;
+      return transformMessageBoard(findMessageBoard);
     } catch (err) {
       throw err;
     }

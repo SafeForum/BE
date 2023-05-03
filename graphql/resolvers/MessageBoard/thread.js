@@ -2,17 +2,21 @@ const Comment = require("../../../models/MessageBoard/comment");
 const Thread = require("../../../models/MessageBoard/thread");
 const User = require("../../../models/user");
 const MBoard = require("../../../models/MessageBoard/messageBoard");
+const { transformThread } = require("./merge");
 
 
 
 module.exports = {
   getThreads: async (args, req) => {
     try {
-      const findThread = await Thread.findById(args.threadId);
+      const findThread = await Thread.find({messageBoard: args.messageBoardId});
+      console.log(findThread)
       if (!findThread) {
         throw new Error("Thread does not Exist");
       }
-      return findThread;
+      return findThread.map((thread) => {
+        return transformThread(thread);
+      });
     } catch (err) {
       throw err;
     }

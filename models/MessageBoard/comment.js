@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const comment = new Schema(
+const commentSchema = new Schema(
   {
     comment: {
       type: String,
@@ -26,4 +26,4 @@ const comment = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Comment", comment);
+module.exports = mongoose.model("Comment", commentSchema);
