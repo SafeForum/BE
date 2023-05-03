@@ -141,6 +141,7 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
+        getSingleUser(userId:String!):User!
         getSingleCityPortal(portalId: String!): CityPortal!
         getMessageBoard(messageBoardId: String!): MessageBoard!
         getCityPortals: [CityPortal!]

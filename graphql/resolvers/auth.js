@@ -9,6 +9,7 @@ const cp = require("../../models/cityPortal");
 // let userInfo;
 
 const attachProfile = async (profileId) => {
+
   try {
     const profileData = await Profile.findById(profileId);
     return {
@@ -20,12 +21,17 @@ const attachProfile = async (profileId) => {
   }
 };
 
+
 module.exports = {
-  createUser: async (args) => {
+
+  createUser: async (args, req) => {
+
     try {
       const existingUser = await User.findOne({ email: args.userInput.email });
       const bioLimit = args.profileInput.occupation.length <= 20 ? true : false;
+
       if (existingUser) {
+
         throw new Error("User already exists.");
       }
       if (!bioLimit) {
@@ -48,7 +54,7 @@ module.exports = {
         firstName: args.userInput.firstName,
         lastName: args.userInput.lastName,
         dob: args.userInput.dob,
-        cityPortal:  findPortal,
+        cityPortal: findPortal,
         createdEvents: null,
         profile: null,
         comments: null
@@ -88,7 +94,7 @@ module.exports = {
         if (!isEqual) {
           throw new Error("Password is incorrect!");
         }
-    
+
         const token = jwt.sign(
           { userId: login.id, email: login.email },
           `${process.env.JWT_SECRET}`,
@@ -98,7 +104,7 @@ module.exports = {
         );
         return { userId: login.id, token: token, tokenExpiration: 1, cityPortal: login.cityPortal };
       }
-       catch (error) {
+      catch (error) {
         throw new Error("Your account has been created, please log in!")
       }
     } catch (err) {
@@ -137,6 +143,17 @@ module.exports = {
       throw new Error("No users");
     }
   },
+
+  getSingleUser: async (args) => {
+    try {
+      const singleUser = await User.findById(args.userId)
+      return singleUser
+    }
+    catch (err) {
+      throw new Error("User detail not available")
+    }
+  },
+  
   login: async ({ email, password }) => {
     const user = await User.findOne({ email: email });
     if (!user) {
